@@ -36,7 +36,7 @@ export class BusinessRequestController {
   @Post('/add')
   @UseInterceptors(FileInterceptor(''))
   async createBusinessRequest(@UploadedFile() file: Express.Multer.File,@Body() data: BusinessRequests) {
-    console.log(data)
+    // console.log(data)
     const request = await this.businessRequestService.create(data).catch(async (err: Error) => {
       let dataLog = {
         loginId: 2,

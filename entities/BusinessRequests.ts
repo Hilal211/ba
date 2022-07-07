@@ -19,8 +19,8 @@ export class BusinessRequests {
   @Column("int", { name: "brand_id", nullable: true, unsigned: true })
   brandId: number | null;
 
-  @Column("varchar", { name: "brand_name", length: 100 })
-  brandName: string;
+  @Column("varchar", { name: "brand_name", nullable: true, length: 100 })
+  brandName: string | null;
 
   @Column("int", { name: "activity_id", nullable: true, unsigned: true })
   activityId: number | null;
@@ -40,7 +40,7 @@ export class BusinessRequests {
   @Column("varchar", { name: "email", length: 100 })
   email: string;
 
-  @Column("varchar", { name: "password", length: 32 })
+  @Column("varchar", { name: "password", length: 60 })
   password: string;
 
   @Column("datetime", {

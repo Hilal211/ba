@@ -12,6 +12,7 @@ import {
 import { ParseIntPipe } from '@nestjs/common/pipes/parse-int.pipe';
 import { LogService } from 'src/log/log.service';
 import { Brand } from '../../entities/Brand';
+import { BrandDto } from './brand.dto';
 import { BrandService } from './brand.service';
 
 @Controller('brand')
@@ -37,6 +38,15 @@ export class BrandController {
       statusCode: HttpStatus.OK,
       message: 'success',
       data: brands
+    };
+  }
+
+   @Patch('/update/:id')
+  async uppdateBrand(@Param('id') id: number, @Body() data: Partial<BrandDto>) {
+    await this.brandService.update(id, data);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'User updated successfully',
     };
   }
 

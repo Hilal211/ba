@@ -8,17 +8,25 @@ export class Login {
   @Column("varchar", { name: "email", length: 100 })
   email: string;
 
-  @Column("varchar", { name: "password", length: 32 })
+  @Column("varchar", { name: "password", length: 60 })
   password: string;
 
   @Column("smallint", { name: "type", comment: "1:user, 2:store" })
   type: number;
 
-  @Column("varchar", { name: "verification_token", length: 100 })
-  verificationToken: string;
+  @Column("varchar", {
+    name: "verification_token",
+    nullable: true,
+    length: 100,
+  })
+  verificationToken: string | null;
 
-  @Column("varchar", { name: "password_reset_token", length: 100 })
-  passwordResetToken: string;
+  @Column("varchar", {
+    name: "password_reset_token",
+    nullable: true,
+    length: 100,
+  })
+  passwordResetToken: string | null;
 
   @Column("datetime", {
     name: "created_date",

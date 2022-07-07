@@ -3,6 +3,7 @@ import { BusinessRequestdto } from './business_request.dto';
 import { BusinessRequests } from '../../entities/BusinessRequests';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { comparePassword, encodePassword } from 'src/utils/bcrypt';
 
 @Injectable()
 export class BusinessRequestService {
@@ -16,6 +17,8 @@ export class BusinessRequestService {
   }
 
   async create(data: BusinessRequests) {
+    data.password=encodePassword(data.password);
+    // const matched=comparePassword(,)
     const user = this.businessRequest.create(data);
     await this.businessRequest.save(data);
     return user;

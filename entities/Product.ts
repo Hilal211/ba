@@ -7,8 +7,10 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Brand } from "./Brand";
+import { Category } from "./Category";
 
 @Index("FK_brand_03", ["brandId"], {})
+@Index("FK_category_02", ["categoryId"], {})
 @Entity("product", { schema: "aplo" })
 export class Product {
   @PrimaryGeneratedColumn({ type: "int", name: "id", unsigned: true })
@@ -22,6 +24,9 @@ export class Product {
 
   @Column("int", { name: "brand_id", nullable: true, unsigned: true })
   brandId: number | null;
+
+  @Column("int", { name: "category_id", unsigned: true })
+  categoryId: number;
 
   @Column("varchar", { name: "upid", length: 20 })
   upid: string;
@@ -56,6 +61,7 @@ export class Product {
   @Column("smallint", {
     name: "archived",
     comment: "0:Not Archived, 1:Archived",
+    default: () => "'0'",
   })
   archived: number;
 
@@ -65,4 +71,11 @@ export class Product {
   })
   @JoinColumn([{ name: "brand_id", referencedColumnName: "id" }])
   brand: Brand;
+
+  @ManyToOne(() => Category, (category) => category.products, {
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT",
+  })
+  @JoinColumn([{ name: "category_id", referencedColumnName: "id" }])
+  category: Category;
 }
