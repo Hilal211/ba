@@ -13,6 +13,10 @@ import { LoginModule } from './login/login.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ProductsModule } from './product/product.module';
 import { CategorysModule } from './category/category.module';
+import { MulterModule } from '@nestjs/platform-express';
+
+//  import { join } from 'path';
+// import { ServeStaticModule } from '@nestjs/serve-static';
 @Module({
   imports: [
     BrandsModule,BusinessRequestModule,LogModule,ActivityModule,LoginModule,ProductsModule,CategorysModule,TypeOrmModule.forRoot({
@@ -33,6 +37,12 @@ import { CategorysModule } from './category/category.module';
         },
       }
     }),
+    MulterModule.register({
+      dest:'./dist/public'
+    }),
+  //   ServeStaticModule.forRoot({
+  //     rootPath: join(__dirname, '..', 'public'),
+  // }),
   ],
   controllers: [AppController],
   providers: [AppService],

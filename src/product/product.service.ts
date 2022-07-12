@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { Product } from '../../entities/Product';
 import { ProductDto } from './product.dto';
+import { DeepPartial } from 'typeorm';
+
 @Injectable()
 export class ProductService {
 
@@ -53,6 +55,12 @@ export class ProductService {
       relations: ['category', 'category.parent', 'category.parent.parent', 'brand'],
       where:ob
     })
+  }
+  async createProduct(file,data: DeepPartial<Product>) {
+    data.featuredImage=file.filename;
+    const user = this.productsRepository.create(data);
+    await this.productsRepository.save(data);
+    return user;
   }
   // async update(id: number, data: Partial<ProductDto>) {
   //   data.updatedDate=new Date()
